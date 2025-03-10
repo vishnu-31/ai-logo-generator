@@ -20,26 +20,23 @@ from google import genai
 
 load_dotenv()
 
-fal_client = None
-
 PROJECT_ID = ""
 LOCATION = ""
 FAL_KEY =""
 
 if os.getenv("ENVIRONMENT"):
     PROJECT_ID = os.getenv("VERTEX_PROJECT") 
-
     LOCATION = os.getenv("VERTEX_LOCATION")
-    FAL_KEY = os.getenv("FAL_KEY")
+    # FAL_KEY = os.getenv("FAL_KEY")
+
 else:
     PROJECT_ID = st.secrets["VERTEX_PROJECT"] 
-
     LOCATION = st.secrets["VERTEX_LOCATION"]
-    FAL_KEY = st.secrets["FAL_KEY"]
+    # FAL_KEY = st.secrets["FAL_KEY"]
 
 
 vertexai.init(project=PROJECT_ID, location=LOCATION)
-fal_client.init(api_key=FAL_KEY)
+# fal_client.init(api_key=FAL_KEY)
      
 
 text_gen_model = GenerativeModel("gemini-2.0-flash")
