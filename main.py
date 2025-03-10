@@ -20,22 +20,34 @@ from google import genai
 
 load_dotenv()
 
-PROJECT_ID = os.getenv("VERTEX_PROJECT")  # @param {type: "string", placeholder: "[your-project-id]", isTemplate: true}
-# if not PROJECT_ID or PROJECT_ID == "[your-project-id]":
-#     PROJECT_ID = str(os.environ.get("GOOGLE_CLOUD_PROJECT"))
+fal_client = None
 
-LOCATION = os.getenv("VERTEX_LOCATION")
+PROJECT_ID = ""
+LOCATION = ""
+FAL_KEY =""
+
+if os.getenv("ENVIRONMENT"):
+    PROJECT_ID = os.getenv("VERTEX_PROJECT") 
+
+    LOCATION = os.getenv("VERTEX_LOCATION")
+    FAL_KEY = os.getenv("FAL_KEY")
+else:
+    PROJECT_ID = st.secrets["VERTEX_PROJECT"] 
+
+    LOCATION = st.secrets["VERTEX_LOCATION"]
+    FAL_KEY = st.secrets["FAL_KEY"]
+
 
 vertexai.init(project=PROJECT_ID, location=LOCATION)
+fal_client.init(api_key=FAL_KEY)
      
-    
+
 text_gen_model = GenerativeModel("gemini-2.0-flash")
 
 
 st.title("Logo generator")
 
 
-# fal_client.init(api_key=os.getenv("FAL_KEY"))
 
 business_desc = st.text_input(
     "Describe your business shortly",
